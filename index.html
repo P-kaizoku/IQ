@@ -7,19 +7,22 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="quiz-container">
-      <h2>Interactive Quiz(IQ)</h2>
-      <div class="question-container">
-        <p id="question">Questions will appear here</p>
-        <div id="options">
-          <button class="option-btn">option 1</button
-          ><button class="option-btn">option 2</button
-          ><button class="option-btn">option 3</button
-          ><button class="option-btn">option 4</button>
-        </div>
+    <div class="container">
+      <div class="menu">
+        <h2>Play IQ</h2>
+        <button class="start-btn">Start!</button>
       </div>
-      <button id="nxt-btn">Next question ➡️</button>
-      <p id="score"></p>
+
+      <div class="game-container">
+        <h2>Interactive Quiz</h2>
+        <p class="question">question here</p>
+        <div class="options">options here</div>
+
+        <button class="prev-question">Prev</button>
+        <button class="nxt-question">Next</button>
+      </div>
     </div>
+
+    <script src="script.js"></script>
   </body>
 </html>
