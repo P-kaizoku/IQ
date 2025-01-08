@@ -4,12 +4,14 @@ const quizQuestions = [
     question: "What is the capital of France?",
     options: ["Berlin", "Madrid", "Paris", "Lisbon"],
     answer: "Paris",
+    marked: false,
   },
   {
     id: 2,
     question: "Which planet is known as the Red Planet?",
     options: ["Earth", "Mars", "Jupiter", "Saturn"],
     answer: "Mars",
+    marked: false,
   },
   {
     id: 3,
@@ -21,6 +23,7 @@ const quizQuestions = [
       "F. Scott Fitzgerald",
     ],
     answer: "Harper Lee",
+    marked: false,
   },
   {
     id: 4,
@@ -32,18 +35,21 @@ const quizQuestions = [
       "Pacific Ocean",
     ],
     answer: "Pacific Ocean",
+    marked: false,
   },
   {
     id: 5,
     question: "What is the smallest prime number?",
     options: ["0", "1", "2", "3"],
     answer: "2",
+    marked: false,
   },
   {
     id: 6,
     question: "What is the chemical symbol for water?",
     options: ["H2O", "O2", "CO2", "HO"],
     answer: "H2O",
+    marked: false,
   },
   {
     id: 7,
@@ -55,18 +61,21 @@ const quizQuestions = [
       "Claude Monet",
     ],
     answer: "Leonardo da Vinci",
+    marked: false,
   },
   {
     id: 8,
     question: "What is the hardest natural substance on Earth?",
     options: ["Gold", "Iron", "Diamond", "Platinum"],
     answer: "Diamond",
+    marked: false,
   },
   {
     id: 9,
     question: "What is the speed of light?",
     options: ["300,000 km/s", "150,000 km/s", "450,000 km/s", "600,000 km/s"],
     answer: "300,000 km/s",
+    marked: false,
   },
   {
     id: 10,
@@ -78,6 +87,7 @@ const quizQuestions = [
       "Nikola Tesla",
     ],
     answer: "Albert Einstein",
+    marked: false,
   },
 ];
 
@@ -94,12 +104,25 @@ let optionChoosed = "";
 let count = 0;
 let score = 0;
 
+function randomQuestion() {
+  let quesNumber = Math.floor(Math.random() * 10);
+
+  const question = quizQuestions[quesNumber];
+
+  if (question.marked) {
+    return randomQuestion();
+  } else {
+    question.marked = true;
+    return question;
+  }
+}
+
 function gameOn() {
   options.innerHTML = "";
-  questionSet = quizQuestions[count];
+  questionSet = randomQuestion();
   console.log(questionSet);
 
-  question.textContent = `${questionSet.id}. ${questionSet.question}`;
+  question.textContent = `${count + 1}. ${questionSet.question}`;
 
   questionSet.options.map((option, index) => {
     const radio = document.createElement("input");
@@ -129,23 +152,24 @@ function gameOn() {
   nextButton.addEventListener("click", nextQuestion);
 }
 
-function prevQuestion(){
-    if (optionChoosed === quizQuestions[count].answer) {
-      score++;
-    }
-    console.log(score);
+function prevQuestion() {
+  // use stack to implement these function :)
+  if (optionChoosed === quizQuestions[count].answer) {
+    score++;
+  }
+  console.log(score);
 
-    if (count < quizQuestions.length - 1 && count > 0) {
-      count--;
-      gameOn();
-    } 
+  if (count < quizQuestions.length - 1 && count > 0) {
+    count--;
+    gameOn();
+  }
 }
 
 function nextQuestion() {
   if (optionChoosed === quizQuestions[count].answer) {
     score++;
   }
-  console.log(score);
+  // console.log(score);
 
   if (count < quizQuestions.length - 1) {
     count++;
@@ -162,7 +186,9 @@ function endGame() {
   const resetButton = document.querySelector(".reset");
 
   resetButton.addEventListener("click", () => {
+    // quizQuestions = quizQuestions.slice(4,8) + quizQuestions.slice(0,4)+quizQuestions.slice(8,11);
     location.reload();
+    // console.log(quizQuestions);
   });
 }
 
